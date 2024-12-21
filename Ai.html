@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genia - Health and Knowledge Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-top: 0;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .info {
+            margin-top: 10px;
+            color: #333;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Genia - Health and Knowledge Hub</h1>
+    </header>
+    <div class="container">
+        <!-- Health Meters Section -->
+        <div class="section">
+            <h2>BMI Calculator and Health Information</h2>
+            <form>
+                <label for="bmi">BMI Calculator</label>
+                <input type="number" id="weight" placeholder="Weight (kg)" required>
+                <input type="number" id="height" placeholder="Height (cm)" required>
+                <button type="button" onclick="calculateBMI()">Calculate BMI</button>
+                <p id="bmi-result" class="info"></p>
+                <p id="bmi-advice" class="info"></p>
+            </form>
+        </div>
+
+        <!-- Search Engine Section -->
+        <div class="section">
+            <h2>Search the Web</h2>
+            <form action="https://www.google.com/search" method="get" target="_blank">
+                <input type="text" name="q" placeholder="Search the web" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Customization Section -->
+        <div class="section">
+            <h2>Customize Your Experience</h2>
+            <label for="theme">Choose Theme:</label>
+            <select id="theme" onchange="changeTheme()">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                alert("Please enter valid positive values for weight and height.");
+                return;
+            }
+
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+            document.getElementById('bmi-result').innerText = `Your BMI is ${bmi}`;
+            
+            let advice = '';
+            if (bmi < 18.5) {
+                advice = "You are underweight. Consider consulting a healthcare provider.";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                advice = "You are in the normal weight range. Maintain your current habits!";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                advice = "You are overweight. Consider adopting a healthier lifestyle.";
+            } else {
+                advice = "You are obese. Please consult a healthcare provider for guidance.";
+            }
+            document.getElementById('bmi-advice').innerText = advice;
+        }
+
+        function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            if (theme === 'dark') {
+                document.body.style.backgroundColor = '#333';
+                document.body.style.color = '#fff';
+            } else {
+                document.body.style.backgroundColor = '#f4f4f9';
+                document.body.style.color = '#000';
+            }
+        }
+    </script>
+</body>
+</html>
